@@ -52,7 +52,7 @@ usearch -search_oligodb subsample.fastq -db primer.fa -strand both -userout hits
   # Filtered the reads to remove the primers
 usearch -fastq_filter mergedreads.fastq --fastq_stripleft 19 --fastq_stripright 20 -fastaout filtered_reads.fasta 
   # Did another search to confirm the removal of the primers we got .1%
-usearch -search_oligodb filtered_reads.fasta -db primer.fa -strand both -userout filttered-primerhits.txt -userfields query+target+qstrand+diffs+tlo+thi+trowdots \
+usearch -search_oligodb filtered_reads.fasta -db primer.fa -strand both -userout filtered-primerhits.txt -userfields query+target+qstrand+diffs+tlo+thi+trowdots \
 
 }
 
