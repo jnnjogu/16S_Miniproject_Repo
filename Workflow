@@ -5,9 +5,11 @@ gunzip evz166_supplementary_data(1).zip
 # Quality Check of the reads (Fastqc) 
 
 {
-
+# load fastqc
 module load fastqc
 fastqc *.gz
+
+# load multiqc
 module load multiqc
 multiqc *.html
 
@@ -16,9 +18,12 @@ multiqc *.html
 # trimming of the reads  using trimmomatic
 
 {
-
+# load trimmomatic
 """
 module load Trimmomatic
+
+# this is a bash script that trims PE reads 
+
 for read in *_R1_001.fastq.gz;
 do
         read=$(basename ${read} _R1_001.fastq.gz)
@@ -34,14 +39,20 @@ done
 # merge the paired reads
 
 {
+# load the module usearch
 module load usearch
-usearch -fastq_mergepairs *_R1.fastq -reverse *_R2.fastq mergedreads.fastq -relable @ #merge the forward and reverse reads
-usearch -fastx_subsample mergedreads -samplesize 10000 -fastqout subsample.fastq #making a subsample of the total reads
-nano primer.fa #copied the primers to the primer.fa file
+  # nmerge the forward and reverse reads
+usearch -fastq_mergepairs *_R1.fastq -reverse *_R2.fastq mergedreads.fastq -relable @ 
+  # making a subsample of the total reads
+usearch -fastx_subsample mergedreads -samplesize 10000 -fastqout subsample.fastq 
+  # copied the primers to the primer.fa file
+nano primer.fa 
+  # Primer search within the reads
 usearch -search_oligodb subsample.fastq -db primer.fa -strand both -userout hits.txt -userfields query+target+qstrand+diffs+tlo+thi+trowdots \
-# Primer search within the reads
-usearch -fastq_filter mergedreads.fastq --fastq_stripleft 19 --fastq_stripright 20 -fastaout filtered_reads.fasta # Filtered the reads to remove the primers
+  # Filtered the reads to remove the primers
+usearch -fastq_filter mergedreads.fastq --fastq_stripleft 19 --fastq_stripright 20 -fastaout filtered_reads.fasta 
+  # Did another search to confirm the removal of the primers we got .1%
 usearch -search_oligodb filtered_reads.fasta -db primer.fa -strand both -userout filttered-primerhits.txt -userfields query+target+qstrand+diffs+tlo+thi+trowdots \
-# Did another search to confirm the removal of the primers we got .1%
+
 }
 
