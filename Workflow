@@ -56,3 +56,18 @@ usearch -search_oligodb filtered_reads.fasta -db primer.fa -strand both -userout
 
 }
 
+#Chimera Detection
+    # Orient the reads 
+ usearch -fastq_filter orient.fastq -fastq_maxee 1.0 -fastqout filtered_from_orient.fastq
+    # Dereplicating the reads
+ usearch -fastx_uniques filtered_from_orient.fastq  -fastaout uniques.fasta -sizeout -relabel Uniq
+   # Clustering OTUS
+ usearch -cluster_otus uniques.fasta -otus otus.fasta -uparseout uparse.txt -relabel Otu
+   # Denoising
+ usearch -unoise3 uniques.fasta -zotus zotus.fasta
+   # Creating OTUS tables
+ usearch -otutab mergedreads.fastq -otus otus.fasta -otutabout otutab.txt -mapout map.txt
+   # Creating ZOTUS tables
+ usearch -otutab mergedreads.fastq -zotus zotus.fasta -otutabout zotutab.txt -mapout zmap.txt
+ 
+ 
