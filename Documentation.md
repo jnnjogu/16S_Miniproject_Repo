@@ -1,4 +1,14 @@
  # Code documentation
+ 
+ ## Dependancies
+- Fastqc
+- Multiqc
+- Qiime
+- Usearch
+- R
+- Trimmomatic
+
+
  ## Downloading data
 - The first thing is downloading the data from the online Zenodo repository. This is a repository that helps scientists upload their resarch outcomes and also facilitate sharing and discovery of information
 ```
