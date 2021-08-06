@@ -10,6 +10,7 @@ gunzip evz166_supplementary_data(1).zip
 - FastQc checks the quality of reads from high throughput sequencing platforms and generates a a html report with the quality of reads.
 - MultiQc combines the fastqc output into one report.
 * load fastqc
+
  module load fastqc
 ```
 for file in *.gz
@@ -18,7 +19,9 @@ do
 done
 ```
 * load multiqc
+
  module load multiqc
+
  multiqc *.html
  
  ## Trimming
@@ -49,6 +52,8 @@ done
  - The relabel option gets the sample identifier from the FASTQ file name by truncating at the first underscore
  
 ```
+Module load Usearch
+
 usearch -fastq_mergepairs *_R1.fastq -reverse *_R2.fastq mergedreads.fastq -relable @
 ```
 
