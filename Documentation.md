@@ -141,7 +141,8 @@ usearch -orient mergedreads.fastq -db ../../silver_bacteria/silva.bacteria.fasta
   
  - Dereplication is the process where quality filtered sequences are collapsed into unique reads
  
- ```usearch -fastx_uniques filtered_from_orient.fastq  -fastaout uniques.fasta -sizeout -relabel Uniq
+ ```
+ 	usearch -fastx_uniques filtered_from_orient.fastq  -fastaout uniques.fasta -sizeout -relabel Uniq
  ```
  
   ## Clustering OTUS
