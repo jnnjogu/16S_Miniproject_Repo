@@ -34,6 +34,9 @@ done
 
  multiqc *.html
  
+![](https://i.imgur.com/Bqd4CgE.png)
+![](https://i.imgur.com/jW334t6.png)
+
  ## Trimming
  
 - Trimmomatic tool is used to trim and filter reads thus removing poor quality reads and adapters.
@@ -52,6 +55,9 @@ do
         LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 done
 ```
+![](https://i.imgur.com/4bSKVBR.png)
+![](https://i.imgur.com/QKifgAl.png)
+
  ## Usearch tool
  
 - Is a sequence analysis and clustering tool.
@@ -96,8 +102,6 @@ usearch -search_oligodb subsample.fastq -db primer.fa -strand both -userout hits
 usearch -fastq_filter mergedreads.fastq --fastq_stripleft 19 --fastq_stripright 20 -fastaout filtered_reads.fasta
 ```
  ## Did another search to confirm the removal of the primers we got .1% hits
- 
- 
  
  
 
@@ -162,8 +166,19 @@ usearch -orient mergedreads.fastq -db ../../silver_bacteria/silva.bacteria.fasta
  usearch -cluster_otus uniques.fasta -otus otus.fasta -uparseout uparse.txt -relabel Otu
  
 ```
+Uniq9;size=5242;        match   dqt=1;top=Otu1(99.7%); \
+Uniq10;size=5038;       match   dqt=1;top=Otu2(99.7%); \
+Uniq11;size=4627;       match   dqt=1;top=Otu2(99.7%); \
+Uniq12;size=4423;       match   dqt=2;top=Otu1(99.3%); \
+Uniq13;size=4119;       match   dqt=1;top=Otu2(99.7%); \
+Uniq14;size=4118;       match   dqt=2;top=Otu1(99.3%); \
+Uniq15;size=4078;       perfect top=Otu1(100.0%); \
+Uniq16;size=3945;       match   dqt=2;top=Otu1(99.3%); \
+Uniq17;size=3886;       match   dqt=1;top=Otu1(99.6%); 
+
+
   ## Denoising
- - The process of removing errors from reads, identifying the correct biological sequences in the reads.
+ - The process of removing errors from reads (i.e. Reads with sequencing and PCR point error are identified and removed), identifying the correct biological sequences in the reads.
 ```
 usearch -unoise3 uniques.fasta -zotus zotus.fasta
 
@@ -175,6 +190,19 @@ usearch -unoise3 uniques.fasta -zotus zotus.fasta
 ```
  usearch -otutab mergedreads.fastq -otus otus.fasta -otutabout otutab.txt -mapout map.txt
  ```
+ Kakamega-101.10 Otu3 \
+Kakamega-101.6  Otu9 \
+Kakamega-101.9  Otu3 \
+Kakamega-101.8  Otu3 \
+Kakamega-101.2  Otu3 \
+Kakamega-101.15 Otu4 \
+Kakamega-101.18 Otu3 \
+Kakamega-101.19 Otu3 \
+Kakamega-101.22 Otu3 \
+Kakamega-101.20 Otu2 \
+Kakamega-101.5  Otu2 \
+Kakamega-101.25 Otu11 
+
  ### Converted the sample-names format
  
  ```
@@ -189,7 +217,18 @@ usearch -unoise3 uniques.fasta -zotus zotus.fasta
  ``` 
  usearch -otutab mreads.fastq -zotus zotus.fasta -otutabout zotutab.txt -mapout zmap.txt
 ``` 
- 
+Kakamega-101.6  Zotu298 \
+Kakamega-101.15 Zotu291 \
+Kakamega-101.13 Zotu4 \
+Kakamega-101.11 Zotu37 \
+Kakamega-101.14 Zotu54 \
+Kakamega-101.9  Zotu75 \
+Kakamega-101.17 Zotu97 \
+Kakamega-101.18 Zotu122 \
+Kakamega-101.10 Zotu92 \
+Kakamega-101.8  Zotu24 \
+Kakamega-101.7  Zotu7 
+
  # Convert Otu reads into qiime2 artifact
  
  - Converts the input to a .qza format.
@@ -255,6 +294,9 @@ function qiime2_visualization()
 - Evenness
 ```
     qiime diversity alpha-group-significance  --i-alpha-diversity core-metrics-results/evenness_vector.qza   --m-metadata-file data.tsv   --o-visualization core-metrics-results/evenness-group-significance.qzv
+    
+  ![](https://i.imgur.com/AlBaYwt.png)
+    
 ```
 - Shannon_Vector
 ```   
@@ -291,6 +333,8 @@ qiime metadata tabulate --m-input-file taxonomy.qza --o-visualization taxabarplo
 ```
 qiime taxa barplot --i-table ../otu_tab_map.qza --i-taxonomy taxonomy.qza --m-metadata-file ../data.tsv  --o-visualization taxbar.qzv
 ```
+![](https://i.imgur.com/d2PyulC.png
+
 - Rarefied the data and generated the rarefaction curve.
 ```
 qiime diversity alpha-rarefaction --i-table ../otu_tab_map.qza --i-phylogeny ../rooted-tree.qza --p-max-depth 4000 --m-metadata-file ../data.tsv --o-visualization rarefaction_4000.qzv
