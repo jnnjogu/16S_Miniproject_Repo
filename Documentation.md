@@ -23,9 +23,9 @@ gunzip evz166_supplementary_data(1).zip
 
  module load fastqc
 ```
-for file in *.gz
+for file in *.gz;
 do
-	fastqc
+	fastqc $file
 done
 ```
 * load multiqc
