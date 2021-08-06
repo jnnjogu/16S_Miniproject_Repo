@@ -1,12 +1,12 @@
  # Code documentation
  
  ## Dependancies
-- Fastqc
-- Multiqc
-- Qiime
-- Usearch
-- R
-- Trimmomatic
+- fastqc/0.11.9 
+- multiqc/1.4
+- qiime2/2020.6
+- usearch/11.0
+- R/4.0.3
+- trimmomatic/0.39
 
 
  ## Downloading data
