@@ -139,6 +139,10 @@ _After filtering_
 - QIIME2 tool is used to remove chimeras which are artifacts formed after sequences are incorrectly joined together during PCR reactions.This tool also does Alpha and Beta diversity
 - Usearch tool is used to find representative sequences or sequence Variants for the samples. Its important when assigning taxonomy.
 
+
+```
+usearch -uchime_ref mergedreads.fasta -db ../../silver_bacteria/silva.bacteria.fasta -uchimeout chimera_out.txt -strand plus -mode sensitive
+```
   ## Orient the reads
   
 - For each input sequence, the orient command attempts to determine whether it is on the same strand as the database sequences (which are assumed to all be on the same strand), or reverse-complemented. If the latter, the sequence is reverse complemented so that the output sequences are all on the same strand.
