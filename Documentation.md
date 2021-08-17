@@ -299,6 +299,7 @@ function qiime2_visualization()
 ```
     qiime diversity alpha-group-significance  --i-alpha-diversity core-metrics-results/evenness_vector.qza   --m-metadata-file data.tsv   --o-visualization core-metrics-results/evenness-group-significance.qzv
     
+    
   ![](https://i.imgur.com/AlBaYwt.png)
     
 ```
@@ -306,12 +307,16 @@ function qiime2_visualization()
 ```   
     qiime diversity alpha-group-significance  --i-alpha-diversity core-metrics-results/shannon_vector.qza   --m-metadata-file data.tsv   --o-visualization core-metrics-results/shannon_group-significance.qzv
 ```
+![Screenshot 2021-08-17 at 10-06-57 shannon-diversity qzv QIIME 2 View](https://user-images.githubusercontent.com/76898485/129679960-c17f4bed-af21-48ce-bfb4-7e7cebe0e2c0.png)
+
 - Beta Diversity
 - Bray_Curtis
     
 ```   
     qiime emperor plot --i-pcoa core-metrics-results/bray_curtis_pcoa_results.qza   --m-metadata-file data.tsv  --o-visualization core-metrics-bray_curtis_pcoa_results.qzv
 ```
+![emperor(1)](https://user-images.githubusercontent.com/76898485/129679670-0f96fcb8-e9ef-49d2-8887-5784a9af29ad.png)
+
 -----
 # Taxonomic classification
 
@@ -337,9 +342,12 @@ qiime metadata tabulate --m-input-file taxonomy.qza --o-visualization taxabarplo
 ```
 qiime taxa barplot --i-table ../otu_tab_map.qza --i-taxonomy taxonomy.qza --m-metadata-file ../data.tsv  --o-visualization taxbar.qzv
 ```
-![](https://i.imgur.com/d2PyulC.png
+![Screenshot 2021-08-17 at 09-59-00 taxa-barplot qzv QIIME 2 View](https://user-images.githubusercontent.com/76898485/129678808-5d1afcb2-fc0a-44eb-a58a-8f2c4a7f5392.png)
+![Screenshot 2021-08-17 at 10-01-25 taxa-barplot qzv QIIME 2 View](https://user-images.githubusercontent.com/76898485/129679119-4f0d8694-495b-4974-897b-4fe67e739018.png)
+
 
 - Rarefied the data and generated the rarefaction curve.
 ```
 qiime diversity alpha-rarefaction --i-table ../otu_tab_map.qza --i-phylogeny ../rooted-tree.qza --p-max-depth 4000 --m-metadata-file ../data.tsv --o-visualization rarefaction_4000.qzv
 ```
+![Screenshot 2021-08-17 at 10-03-46 alpha-rarefaction qzv QIIME 2 View](https://user-images.githubusercontent.com/76898485/129679411-b6adfe09-6dd3-4295-af58-29979162a8ff.png)
